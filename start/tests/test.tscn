@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b6csn0luawvwl"]
+
+[ext_resource type="PackedScene" uid="uid://bdxjduova28d8" path="res://scenes/player/player.tscn" id="1_yggfj"]
+[ext_resource type="Script" uid="uid://uwbxwrgrmmou" path="res://scenes/player/player.gd" id="2_eig8f"]
+[ext_resource type="PackedScene" uid="uid://2wf4k8h0d3or" path="res://scenes/camera/camera_rig.tscn" id="3_dsb46"]
+[ext_resource type="PackedScene" uid="uid://dcf57mvultqd8" path="res://scenes/objects/palm_tree.tscn" id="3_ry45r"]
+[ext_resource type="PackedScene" uid="uid://b2r6ihyqi3scx" path="res://assets/models/map/tree.glb" id="4_dsb46"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_dovo2"]
+size = Vector3(24, 1, 24)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gmlin"]
+size = Vector3(24, 1, 24)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lvxji"]
+size = Vector3(4, 2, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p47bc"]
+size = Vector3(4, 2, 4)
+
+[node name="Stage" type="Node3D" unique_id=344590807]
+
+[node name="World" type="Node3D" parent="." unique_id=71367623]
+
+[node name="Ground" type="MeshInstance3D" parent="World" unique_id=1739805668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_dovo2")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Ground" unique_id=2065803894]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ground/StaticBody3D" unique_id=1401041741]
+shape = SubResource("BoxShape3D_gmlin")
+
+[node name="Platform" type="MeshInstance3D" parent="World" unique_id=501005838]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2, -2)
+mesh = SubResource("BoxMesh_lvxji")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Platform" unique_id=991127891]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Platform/StaticBody3D" unique_id=1647108491]
+shape = SubResource("BoxShape3D_p47bc")
+
+[node name="Player" parent="." unique_id=785566249 instance=ExtResource("1_yggfj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4)
+script = ExtResource("2_eig8f")
+
+[node name="CameraRig" parent="." unique_id=1943829166 node_paths=PackedStringArray("target") instance=ExtResource("3_dsb46")]
+target = NodePath("../Player")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1134504719]
+transform = Transform3D(0.81915206, 0.46984634, -0.32898995, 0, 0.57357645, 0.81915206, 0.57357645, -0.6710101, 0.46984634, 0, 0, 0)
+shadow_enabled = true
+
+[node name="PalmTree" parent="." unique_id=175257566 instance=ExtResource("3_ry45r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
+
+[node name="tree" parent="." unique_id=242148584 instance=ExtResource("4_dsb46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 4)
+
+[node name="tree2" parent="." unique_id=85633317 instance=ExtResource("4_dsb46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 4)
